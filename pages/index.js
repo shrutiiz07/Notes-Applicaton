@@ -8,6 +8,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const router = useRouter();
+  const [hover, setHover] = useState(false);
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -42,10 +43,15 @@ export default function Login() {
     }
   }
 
+  const buttonStyle = {
+    ...styles.button,
+    ...(hover && styles.buttonHover),
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h1 style={styles.title}>Notes SaaS — Login</h1>
+        <h1 style={styles.title}>Notes Application</h1>
 
         <form onSubmit={handleLogin} style={styles.form}>
           <label style={styles.label}>Email</label>
@@ -68,7 +74,7 @@ export default function Login() {
             required
           />
 
-          <button type="submit" style={styles.button} disabled={loading}>
+          <button type="submit" style={buttonStyle} disabled={loading} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             {loading ? "Logging in..." : "Login"}
           </button>
 
@@ -94,19 +100,25 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "#f5f6fa",
+    background: "black",
+    margin: 0, 
+    fontFamily: "'Inter', sans-serif",
   },
   card: {
-    background: "#fff",
-    padding: "30px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    width: "100%",
+    background: "rgba(255, 255, 255, 0.1)",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+    borderRadius: "20px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+    width: "380px",
     maxWidth: "400px",
+    color: "#fff",
+    padding: "2rem"
   },
   title: {
     textAlign: "center",
     marginBottom: "20px",
+    fontSize: "1.8rem"
   },
   form: {
     display: "flex",
@@ -117,21 +129,37 @@ const styles = {
     fontWeight: "bold",
   },
   input: {
-    padding: "10px",
-    marginBottom: "15px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    fontSize: "14px",
-  },
-  button: {
     padding: "12px",
-    background: "#0070f3",
-    color: "#fff",
-    fontWeight: "bold",
+    margin: "10px 0",
+    marginBottom: "15px",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "10px",
+    fontSize: "1 rem",
+    width: "100%",
+    background: "rgba(255, 255, 255, 0.15)",
+    color: "#fff",
+    outline: "none"
+  },
+  
+  button: {
+    width: "150px",
+    margin: "auto",
+    padding: "12px",
+    background: "linear-gradient(90deg, #ffffff, #d9d9d9)",
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: "1rem",
+    border: "none",
+    borderRadius: "12px",
     cursor: "pointer",
     marginTop: "5px",
+    transition: "all 0.3s ease", 
+  },
+  buttonHover: {
+    color: "#fff",
+    background: "linear-gradient(90deg, #000, #444)",
+    transform: "scale(1.05)",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
   },
   error: {
     marginTop: "10px",

@@ -9,6 +9,7 @@ export default function NotesPage() {
     const [plan, setPlan] = useState("free"); // default
     const [err, setErr] = useState("");
     const [loading, setLoading] = useState(true);
+    const [hover, setHover] = useState(false);
 
     // client-only values
     const [token, setToken] = useState(null);
@@ -118,10 +119,15 @@ export default function NotesPage() {
         }
     }
 
+    const buttonStyle = {
+  ...styles.upgradeButton,
+  ...(hover ? styles.buttonHover : {}),
+};
+
     return (
         <div style={styles.container}>
             <div style={styles.card}>
-                <h1 style={styles.title}>📒 Notes Dashboard</h1>
+                <h1 style={styles.title}>Notes Dashboard</h1>
                 <p>
                     Tenant: <b>{tenantSlug || "..."}</b> | Role: <b>{role || "..."}</b> | Plan:{" "}
                     <b>{plan}</b>
@@ -138,8 +144,8 @@ export default function NotesPage() {
 
                 {/* Upgrade button (only if free plan and admin) */}
                 {plan === "free" && role?.toLowerCase() === "admin" && notes.length >= 3 && (
-                    <button onClick={handleUpgrade} style={styles.upgradeButton}>
-                        🚀 Upgrade to Pro
+                    <button onClick={handleUpgrade} style={buttonStyle} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                        Upgrade to Pro
                     </button>
                 )}
 
@@ -151,7 +157,7 @@ export default function NotesPage() {
                     <NoteList
                         notes={notes}
                         onDelete={handleDelete}
-                        onUpdate={handleUpdate}  
+                        onUpdate={handleUpdate}
                     />
                 )}
             </div>
@@ -162,14 +168,16 @@ export default function NotesPage() {
 
 const styles = {
     container: {
+        fontFamily: "'Inter', sans-serif",
         minHeight: "100vh",
-        background: "#f5f6fa",
         padding: "30px",
         display: "flex",
         justifyContent: "center",
+        background: "#121212"
     },
     card: {
-        background: "#fff",
+        background: "rgba(255, 255, 255, 0.1)",
+        color: "white",
         padding: "25px",
         borderRadius: "10px",
         maxWidth: "700px",
@@ -177,19 +185,30 @@ const styles = {
         boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
     },
     title: {
+        color:"",
         textAlign: "center",
         marginBottom: "15px",
+        fontSize: "2 rem",
     },
     upgradeButton: {
-        padding: "12px",
-        background: "#28a745",
+        display: "block",
+        padding: "10px",
         color: "#fff",
         fontWeight: "bold",
         border: "none",
-        borderRadius: "5px",
+        borderRadius: "10px",
         cursor: "pointer",
+        width: "140px",
+        margin: "auto",
         marginBottom: "20px",
-        width: "100%",
+        background: "linear-gradient(90deg, #d73d3dff, #5525d6ff)",
+        fontSize: "1rem",
+        transition: "all 0.3s ease",
+    },
+    buttonHover: {
+        transform: "scale(1.08)",
+        boxShadow: "0 6px 18px rgba(222, 94, 94, 0.4), 0 6px 18px rgba(110, 70, 218, 0.4)",
+        filter: "brightness(1.0)",
     },
     error: {
         color: "red",

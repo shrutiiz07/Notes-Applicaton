@@ -39,19 +39,12 @@ JWT_SECRET=your_jwt_secret
 4️⃣ Run development server
 npm run dev
 
-
 App runs at http://localhost:3000
-
 
 # 🛠️ Tech Stack
 
-Frontend: Next.js, React
-
-Backend: Next.js API routes
-
-Database: MongoDB + Mongoose
-
-Auth: JWT
-
+Frontend: Next.js, React  
+Backend: Next.js API routes  
+Database: MongoDB + Mongoose  
+Auth: JWT  
 Deployment: Vercel / Render / Railway
-

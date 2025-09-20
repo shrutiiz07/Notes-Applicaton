@@ -40,12 +40,12 @@ export default function NoteList({ notes, onDelete, onUpdate }) {
           ) : (
             <>
               <h3>{note.title}</h3>
-              <p>{note.content}</p>
-              <small>
+              <p style={{color:"#e9ecf2ff"}}>{note.content}</p>
+              <small style={{color:"#9ca3af"}}>
                 Last updated: {new Date(note.updatedAt).toLocaleString()}
               </small>
               <br />
-              <button onClick={() => startEdit(note)}>✏️ Edit</button>
+              <button style={styles.editBtn} onClick={() => startEdit(note)}>✐ Edit</button>
               <button
                 style={styles.deleteBtn}
                 onClick={() => {
@@ -67,18 +67,30 @@ export default function NoteList({ notes, onDelete, onUpdate }) {
 const styles = {
   container: { display: "grid", gap: "15px" },
   card: {
-    background: "#fff",
+    background: "#3a3a3bff",
     padding: "15px",
-    borderRadius: "8px",
+    borderRadius: "10px",
     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+    color: "#f3f4f6",
+  },
+  editBtn:{
+    margin:"7px",
+    marginTop: "5px",
+    padding: "5px 9px",
+    background: "#555555ff",
+    color: "#f4e7e7ff",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
   },
   deleteBtn: {
-    marginTop: "10px",
-    padding: "6px 12px",
-    background: "#dc3545",
-    color: "#fff",
+    margin:"7px",
+    marginTop: "5px",
+    padding: "5px 9px",
+    background: "#ef4444",
+    color: "#f4e7e7ff",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "8px",
     cursor: "pointer",
   },
 };

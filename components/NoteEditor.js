@@ -5,6 +5,7 @@ export default function NoteEditor({ onCreate }) {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const [hover, setHover] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,6 +38,11 @@ export default function NoteEditor({ onCreate }) {
     }
   }
 
+  const buttonStyle = {
+    ...styles.button,
+    ...(hover && styles.buttonHover),
+  };
+
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
       <input
@@ -54,7 +60,7 @@ export default function NoteEditor({ onCreate }) {
         style={styles.textarea}
         required
       />
-      <button type="submit" style={styles.button} disabled={loading}>
+      <button type="submit" style={buttonStyle} disabled={loading} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         {loading ? "Saving..." : "Add Note"}
       </button>
       {err && <p style={styles.error}>{err}</p>}
@@ -69,26 +75,44 @@ const styles = {
     marginBottom: "20px",
   },
   input: {
-    padding: "10px",
-    marginBottom: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
+    padding: "12px",
+    margin: "10px 0",
+    border: "none",
+    borderRadius: "10px",
+    fontSize: "1 rem",
+    background: "rgba(255, 255, 255, 0.15)",
+    outline: "none"
   },
   textarea: {
-    padding: "10px",
-    marginBottom: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
     minHeight: "80px",
+    padding: "12px",
+    margin: "10px 0",
+    border: "none",
+    borderRadius: "10px",
+    fontSize: "1 rem",
+    background: "rgba(255, 255, 255, 0.15)",
+    outline: "none"
   },
   button: {
-    padding: "10px",
-    background: "#0070f3",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
+    color: "#fbc933ff",
+    border: " 3px solid #fbc933ff",
     cursor: "pointer",
+    width: "140px",
+    margin: "auto",
+    padding: "10px",
+    background: "linear-gradient(90deg, #ffffff, #d9d9d9)",
+    fontWeight: "bold",
+    fontSize: "1rem",
+    borderRadius: "12px",
+    marginTop: "20px",
+    transition: "all 0.3s ease", 
   },
+  buttonHover: {
+    color: "#000",
+    background: "linear-gradient(90deg, #fbc933ff, #ffd966)", // gold accent
+    transform: "scale(1)",
+    boxShadow: "0 4px 12px rgba(251, 201, 51, 0.4)",
+},
   error: {
     color: "red",
     marginTop: "5px",
